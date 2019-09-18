@@ -1,0 +1,12 @@
+# FROM nexus.alm.set:5013/drs-angular-8/web-builder:0.1 as builder
+# FROM node:12.10.0 as builder
+FROM buildkite/puppeteer as builder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install --no-optional
+
+COPY ./ ./
+RUN npm run test-ci --no-optional
+
